@@ -1,4 +1,4 @@
-package kz.solva.solvatechoraz.model.entity.enums;
+package kz.solva.solvatechoraz.model.enums;
 
 public enum ExpenseCategory {
     PRODUCT, SERVICE

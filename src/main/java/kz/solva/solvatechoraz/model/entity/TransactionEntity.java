@@ -1,12 +1,14 @@
 package kz.solva.solvatechoraz.model.entity;
 
 import jakarta.persistence.*;
-import kz.solva.solvatechoraz.model.entity.enums.CurrencyShortName;
-import kz.solva.solvatechoraz.model.entity.enums.ExpenseCategory;
+import kz.solva.solvatechoraz.model.enums.CurrencyShortName;
+import kz.solva.solvatechoraz.model.enums.ExpenseCategory;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -35,5 +37,8 @@ public class TransactionEntity extends BaseEntity {
 
     @Column(name = "limit_exceeded")
     private boolean limitExceeded;
+
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
 
 }

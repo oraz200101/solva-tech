@@ -4,16 +4,22 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "limit")
 @AllArgsConstructor
 @NoArgsConstructor
 public class LimitEntity extends BaseEntity {
 
-    @Column(name = "limit")
-    private double limit;
+    @Column(name = "limit_sum")
+    private double limitSum;
+
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
 
     @OneToOne(mappedBy = "limit")
     private AccountEntity account;
+
 
 }
