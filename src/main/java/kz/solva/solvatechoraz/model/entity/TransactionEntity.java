@@ -1,0 +1,39 @@
+package kz.solva.solvatechoraz.model.entity;
+
+import jakarta.persistence.*;
+import kz.solva.solvatechoraz.model.entity.enums.CurrencyShortName;
+import kz.solva.solvatechoraz.model.entity.enums.ExpenseCategory;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Entity
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "transaction")
+public class TransactionEntity extends BaseEntity {
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "account_to", referencedColumnName = "account_number")
+    private AccountEntity accountFrom;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "account_to", referencedColumnName = "account_number")
+    private AccountEntity accountTo;
+
+    @Column(name = "sum")
+    private double sum;
+
+    @Column(name = "currency_short_name", nullable = false)
+    private CurrencyShortName currencyShortName;
+
+    @Column(name = "expense_category", nullable = false)
+    private ExpenseCategory expenseCategory;
+
+    @Column(name = "limit_exceeded")
+    private boolean limitExceeded;
+
+}
