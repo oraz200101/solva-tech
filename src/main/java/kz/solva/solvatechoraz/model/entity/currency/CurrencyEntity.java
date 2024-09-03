@@ -11,5 +11,5 @@ import java.util.List;
 @Setter
 public class CurrencyEntity implements Serializable {
     private CurrencyShortName shortName;
-    private List<CurrencyValue> currencyValues;
+    private List<CurrencyValueEntity> values;
 }

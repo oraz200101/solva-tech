@@ -1,1 +1,23 @@
-spring.application.name=solva-tech-oraz
+spring:
+  application:
+    name: solva-tech-oraz
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+
+  datasource:
+    url: jdbc:postgresql://${DATABASE_HOST:localhost}:${DATABASE_PORT:10010}/${DATABASE_NAME:postgres}
+    username: ${DATABASE_USER:solva}
+    password: ${DATABASE_PASSWORD:1234}
+
+  flyway:
+    enabled: true
+    validate-on-migrate: true
+
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}

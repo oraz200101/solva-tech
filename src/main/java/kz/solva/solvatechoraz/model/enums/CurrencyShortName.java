@@ -23,9 +23,7 @@ public enum CurrencyShortName {
             case "RUB" -> {
                 return RUB;
             }
-            default -> {
-                throw new IllegalArgumentException("Unknown currency short name: " + stringValue);
-            }
+            default -> throw new IllegalArgumentException("Unknown currency short name: " + stringValue);
         }
     }
 }

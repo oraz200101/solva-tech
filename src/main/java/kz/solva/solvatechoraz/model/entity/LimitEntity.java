@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "limit")
+@Table(name = "limit", schema = "solva")
 @AllArgsConstructor
 @NoArgsConstructor
 public class LimitEntity extends BaseEntity {

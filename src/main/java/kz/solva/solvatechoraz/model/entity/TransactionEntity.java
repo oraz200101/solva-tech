@@ -15,11 +15,11 @@ import java.time.LocalDateTime;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "transaction")
+@Table(name = "transaction", schema = "solva")
 public class TransactionEntity extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "account_to", referencedColumnName = "account_number")
+    @JoinColumn(name = "account_from", referencedColumnName = "account_number")
     private AccountEntity accountFrom;
 
     @ManyToOne(fetch = FetchType.LAZY)

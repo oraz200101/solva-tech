@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-public class CurrencyValue {
+public class CurrencyValueEntity {
     private double open;
     private double high;
     private double low;

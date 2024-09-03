@@ -3,10 +3,10 @@ package kz.solva.solvatechoraz.model.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "account")
+@Table(name = "account", schema = "solva")
 public class AccountEntity extends BaseEntity {
 
-    @Column(name = "account_number", nullable = false)
+    @Column(name = "account_number", nullable = false, unique = true)
     private long accountNumber;
 
     @OneToOne(fetch = FetchType.LAZY)

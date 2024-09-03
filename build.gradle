@@ -28,15 +28,41 @@ ext {
 }
 
 dependencies {
+	// region spring
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.flywaydb:flyway-core'
-	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
 	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+	// endregion spring
+
+	// region flyway
+	implementation 'org.flywaydb:flyway-core:9.16.0'
+	// endregion flyway
+
+	// region redis
+	implementation 'redis.clients:jedis:5.1.5'
+	implementation 'org.apache.commons:commons-pool2:2.11.1'
+	// endregion redis
+
+	// region mapstruct
+	implementation 'org.mapstruct:mapstruct:1.6.0'
+	annotationProcessor 'org.mapstruct:mapstruct-processor:1.6.0'
+	annotationProcessor 'org.projectlombok:lombok-mapstruct-binding:0.1.0'
+	// endregion mapstruct
+
+	// region postgresql
+	implementation 'org.postgresql:postgresql:42.7.4'
+	// endregion postgresql
+
+	// region lombok
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
+	// endregion lombok
+
+	// region tests
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	// endregion tests
 }
 
 dependencyManagement {

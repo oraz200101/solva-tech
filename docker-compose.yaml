@@ -1,0 +1,54 @@
+version: '2.3'
+
+networks:
+  default:
+    name: solva-tech-network
+    ipam:
+      driver: default
+      config:
+        - subnet: 173.36.0.0/16
+
+services:
+  solva-tech-db:
+    image: postgres:15
+    container_name: solva-tech-db
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: "1234"
+      POSTGRES_PORT: "5432"
+      POSTGRES_USER: "solva"
+      POSTGRES_DB: "postgres"
+    ports:
+      - "5432:5432"
+    volumes:
+      - ~/volumes/solva-tech/pg-data:/var/lib/postgresql/data
+      - ./auth-init:/docker-entrypoint-initdb.d
+    command:
+      - "docker-entrypoint.sh"
+      - "-c"
+      - "max-connections=800"
+
+  redis:
+    image: redis:7
+    container_name: redis
+    restart: always
+    ports:
+      - "6379:6379"
+
+  solva-tech-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: user-service
+    ports:
+      - "8080:8080"
+    depends_on:
+      - solva-tech-db
+      - redis
+    environment:
+      DATABASE_HOST: solva-tech-db
+      DATABASE_PORT: 5432
+      DATABASE_USER: solva
+      DATABASE_PASSWORD: 1234
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
