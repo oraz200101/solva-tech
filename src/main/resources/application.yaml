@@ -16,8 +16,12 @@ spring:
   flyway:
     enabled: true
     validate-on-migrate: true
+    schemas: public
 
   data:
     redis:
       host: ${REDIS_HOST:localhost}
       port: ${REDIS_PORT:6379}
+
+  twelve:
+    api: "c86562cc65ad4e029dc46a40585de951"

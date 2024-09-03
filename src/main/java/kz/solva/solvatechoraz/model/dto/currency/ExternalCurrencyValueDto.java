@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class ExternalCurrencyValueDto {
-    private LocalDateTime dateTime;
+    private String datetime;
     private String open;
     private String high;
     private String low;

@@ -14,6 +14,7 @@ public interface CurrencyClient {
     ExternalCurrencyDto getCurrency(@RequestParam(name = "symbol") String symbol,
                                     @RequestParam(name = "interval") String interval,
                                     @RequestParam(name = "apikey") String apiKey,
-                                    @RequestParam(name = "date") String date,
+                                    @RequestParam(name = "dateTime") String date,
+                                    @RequestParam(name = "outputsize") String outputSize,
                                     @RequestParam(name = "timezone") String timeZone);
 }

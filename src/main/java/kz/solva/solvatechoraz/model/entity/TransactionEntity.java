@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 
 @Entity
 @Getter
@@ -33,6 +34,7 @@ public class TransactionEntity extends BaseEntity {
     private CurrencyShortName currencyShortName;
 
     @Column(name = "expense_category", nullable = false)
+    @Enumerated(EnumType.STRING)
     private ExpenseCategory expenseCategory;
 
     @Column(name = "limit_exceeded")
@@ -41,4 +43,8 @@ public class TransactionEntity extends BaseEntity {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
+    @PrePersist
+    public void onCreate() {
+        createdAt = LocalDateTime.now(ZoneOffset.UTC);
+    }
 }

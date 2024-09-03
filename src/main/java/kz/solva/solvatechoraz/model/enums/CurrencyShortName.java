@@ -14,16 +14,21 @@ public enum CurrencyShortName {
 
     public static CurrencyShortName getByStringValue(String stringValue) {
         switch (stringValue) {
-            case "KZT" -> {
+            case "USD/KZT" -> {
                 return KZT;
             }
-            case "USD" -> {
-                return USD;
-            }
-            case "RUB" -> {
+            case "USD/RUB" -> {
                 return RUB;
             }
             default -> throw new IllegalArgumentException("Unknown currency short name: " + stringValue);
         }
+    }
+
+    public static String usdToKzt() {
+        return "USD/KZT";
+    }
+
+    public static String usdToRub() {
+        return "USD/RUB";
     }
 }

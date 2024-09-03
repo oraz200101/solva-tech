@@ -10,4 +10,5 @@ import java.util.List;
 public class ExternalCurrencyDto {
    private ExternalCurrencyMetaDto meta;
    private List<ExternalCurrencyValueDto> values;
+   private String status;
 }
