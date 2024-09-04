@@ -11,5 +11,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class AccountResponseDto {
     private long accountNumber;
-    private double limitSum;
+    private double productLimitSum;
+    private double serviceLimitSum;
 }

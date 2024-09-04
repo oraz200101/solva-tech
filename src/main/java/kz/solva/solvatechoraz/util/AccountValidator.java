@@ -8,19 +8,19 @@ public class AccountValidator {
 
     public static void validate(AccountRequestDto accountRequestDto) {
         if (accountRequestDto == null) {
-            throw new ValidationException("Account request is null", "cYChEKM");
+            throw new ValidationException("Account request is null", "OdHixUy");
         }
 
         if (accountRequestDto.getAccountNumber() == 0) {
-            throw new ValidationException("Account number is null", "cYChEKM");
+            throw new ValidationException("Account number is null", "uBFfOpVM4r");
         }
 
         if (accountRequestDto.getAccountNumber() > 10_000_000_000L) {
-            throw new ValidationException("Account number too large", "cYChEKM");
+            throw new ValidationException("Account number too large", "6tw4Gv6nVv");
         }
 
         if (accountRequestDto.getAccountNumber() < 1_000_000_000L) {
-            throw new ValidationException("Account number too small", "cYChEKM");
+            throw new ValidationException("Account number too small", "OPAzBVjO");
         }
 
         validate(accountRequestDto.getLimit());
@@ -28,7 +28,7 @@ public class AccountValidator {
 
     public static void validate(LimitRequestDto limitRequestDto) {
         if (limitRequestDto == null) {
-            throw new ValidationException("Limit is null", "cYChEKM");
+            throw new ValidationException("Limit is null", "IBOUcH0S");
         }
     }
 }

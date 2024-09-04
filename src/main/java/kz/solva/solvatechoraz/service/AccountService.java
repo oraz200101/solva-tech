@@ -3,6 +3,7 @@ package kz.solva.solvatechoraz.service;
 import kz.solva.solvatechoraz.model.dto.AccountRequestDto;
 import kz.solva.solvatechoraz.model.dto.AccountResponseDto;
 import kz.solva.solvatechoraz.model.dto.LimitRequestDto;
+import kz.solva.solvatechoraz.model.entity.LimitEntity;
 
 public interface AccountService {
 
@@ -10,6 +11,6 @@ public interface AccountService {
 
     AccountResponseDto getByAccountNumber(long accountNumber);
 
-    void changeLimit(long accountNumber, LimitRequestDto limitRequestDto);
+    LimitEntity changeLimit(long accountNumber, LimitRequestDto limitRequestDto);
 }
 

@@ -6,6 +6,7 @@ import kz.solva.solvatechoraz.model.dto.AccountResponseDto;
 import kz.solva.solvatechoraz.model.dto.LimitRequestDto;
 import kz.solva.solvatechoraz.model.entity.LimitEntity;
 import kz.solva.solvatechoraz.model.exception.NotFoundException;
+import kz.solva.solvatechoraz.model.exception.ValidationException;
 import kz.solva.solvatechoraz.repository.AccountRepository;
 import kz.solva.solvatechoraz.repository.LimitRepository;
 import kz.solva.solvatechoraz.service.AccountService;
@@ -22,11 +23,15 @@ public class AccountServiceImpl implements AccountService {
     private final LimitRepository limitRepository;
     private final AccountMapper accountMapper;
 
-
     @Override
     @Transactional
     public void createAccount(AccountRequestDto accountRequestDto) {
         AccountValidator.validate(accountRequestDto);
+
+        if (accountRepository.existsAccountByNumber(accountRequestDto.getAccountNumber())) {
+            throw new ValidationException("account with number " + accountRequestDto.getAccountNumber() + " exists", "0yn56PK2");
+        }
+
         accountRepository.save(accountMapper.mapToAccountEntity(accountRequestDto));
     }
 
@@ -38,14 +43,14 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     @Transactional
-    public void changeLimit(long accountNumber, LimitRequestDto limitRequestDto) {
+    public LimitEntity changeLimit(long accountNumber, LimitRequestDto limitRequestDto) {
         AccountValidator.validate(limitRequestDto);
 
-        LimitEntity limit = limitRepository.findByAccountNumber(accountNumber)
+        LimitEntity limit = limitRepository.findByAccountNumberAndExpenseCategory(accountNumber, limitRequestDto.getExpenseCategory())
                 .orElseThrow(() -> new NotFoundException("limit with account number " + accountNumber + " was not found", "hEF7jdvAp"));
 
         limit.setLimitSum(limitRequestDto.getLimitSum());
 
-        limitRepository.save(limit);
+        return limitRepository.save(limit);
     }
 }

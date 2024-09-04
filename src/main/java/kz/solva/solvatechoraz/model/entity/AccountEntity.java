@@ -18,7 +18,10 @@ public class AccountEntity extends BaseEntity {
     private long accountNumber;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "limit_id")
-    private LimitEntity limit;
+    @JoinColumn(name = "product_limit_id")
+    private LimitEntity productLimit;
 
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "service_limit_id")
+    private LimitEntity serviceLimit;
 }

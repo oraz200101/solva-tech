@@ -1,76 +1,80 @@
 plugins {
-	id 'java'
-	id 'org.springframework.boot' version '3.3.3'
-	id 'io.spring.dependency-management' version '1.1.6'
+    id 'java'
+    id 'org.springframework.boot' version '3.3.3'
+    id 'io.spring.dependency-management' version '1.1.6'
 }
 
 group = 'kz.solva'
 version = '0.0.1-SNAPSHOT'
 
 java {
-	toolchain {
-		languageVersion = JavaLanguageVersion.of(17)
-	}
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
 }
 
 configurations {
-	compileOnly {
-		extendsFrom annotationProcessor
-	}
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
 }
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 ext {
-	set('springCloudVersion', "2023.0.3")
+    set('springCloudVersion', "2023.0.3")
 }
 
 dependencies {
-	// region spring
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
-	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
-	// endregion spring
+    // region spring
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+    // endregion spring
 
-	// region flyway
-	implementation 'org.flywaydb:flyway-core:9.16.0'
-	// endregion flyway
+    // region flyway
+    implementation 'org.flywaydb:flyway-core:9.16.0'
+    // endregion flyway
 
-	// region redis
-	implementation 'redis.clients:jedis:5.1.5'
-	implementation 'org.apache.commons:commons-pool2:2.11.1'
-	// endregion redis
+    // region redis
+    implementation 'redis.clients:jedis:5.1.5'
+    implementation 'org.apache.commons:commons-pool2:2.11.1'
+    // endregion redis
 
-	// region mapstruct
-	implementation 'org.mapstruct:mapstruct:1.6.0'
-	annotationProcessor 'org.mapstruct:mapstruct-processor:1.6.0'
-	annotationProcessor 'org.projectlombok:lombok-mapstruct-binding:0.1.0'
-	// endregion mapstruct
+    // region mapstruct
+    implementation 'org.mapstruct:mapstruct:1.6.0'
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.6.0'
+    annotationProcessor 'org.projectlombok:lombok-mapstruct-binding:0.1.0'
+    // endregion mapstruct
 
-	// region postgresql
-	implementation 'org.postgresql:postgresql:42.7.4'
-	// endregion postgresql
+    // region postgresql
+    implementation 'org.postgresql:postgresql:42.7.4'
+    // endregion postgresql
 
-	// region lombok
-	compileOnly 'org.projectlombok:lombok'
-	annotationProcessor 'org.projectlombok:lombok'
-	// endregion lombok
+	// region elasticSearch
+    implementation 'co.elastic.clients:elasticsearch-java:8.15.0'
+    // endregion elasticSearch
 
-	// region tests
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-	// endregion tests
+    // region lombok
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    // endregion lombok
+
+    // region tests
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    // endregion tests
 }
 
 dependencyManagement {
-	imports {
-		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
-	}
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
 }
 
 tasks.named('test') {
-	useJUnitPlatform()
+    useJUnitPlatform()
 }
