@@ -4,6 +4,7 @@ import kz.solva.solvatechoraz.mapper.AccountMapper;
 import kz.solva.solvatechoraz.model.dto.AccountRequestDto;
 import kz.solva.solvatechoraz.model.dto.AccountResponseDto;
 import kz.solva.solvatechoraz.model.dto.LimitRequestDto;
+import kz.solva.solvatechoraz.model.entity.AccountEntity;
 import kz.solva.solvatechoraz.model.entity.LimitEntity;
 import kz.solva.solvatechoraz.model.exception.NotFoundException;
 import kz.solva.solvatechoraz.model.exception.ValidationException;
@@ -32,7 +33,11 @@ public class AccountServiceImpl implements AccountService {
             throw new ValidationException("account with number " + accountRequestDto.getAccountNumber() + " exists", "0yn56PK2");
         }
 
-        accountRepository.save(accountMapper.mapToAccountEntity(accountRequestDto));
+        AccountEntity accountEntity = accountMapper.mapToAccountEntity(accountRequestDto);
+        accountEntity.getProductLimit().setAccount(accountEntity);
+        accountEntity.getServiceLimit().setAccount(accountEntity);
+
+        accountRepository.save(accountEntity);
     }
 
     @Override

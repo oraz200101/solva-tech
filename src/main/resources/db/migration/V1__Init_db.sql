@@ -31,3 +31,12 @@ CREATE TABLE IF NOT EXISTS solva.transaction
     CONSTRAINT fk_account_from FOREIGN KEY (account_from) REFERENCES solva.account (account_number),
     CONSTRAINT fk_account_to FOREIGN KEY (account_to) REFERENCES solva.account (account_number)
 );
+
+ALTER TABLE solva.limit
+    ADD COLUMN account_id BIGINT;
+
+ALTER TABLE solva.limit
+    ADD CONSTRAINT fk_account_id
+        FOREIGN KEY (account_id)
+            REFERENCES solva.account(id)
+            ON DELETE SET NULL;

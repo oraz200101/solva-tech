@@ -23,7 +23,8 @@ public class AccountValidator {
             throw new ValidationException("Account number too small", "OPAzBVjO");
         }
 
-        validate(accountRequestDto.getLimit());
+        validate(accountRequestDto.getProductLimit());
+        validate(accountRequestDto.getServiceLimit());
     }
 
     public static void validate(LimitRequestDto limitRequestDto) {

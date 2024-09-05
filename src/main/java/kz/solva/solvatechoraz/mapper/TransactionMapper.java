@@ -15,8 +15,8 @@ import java.time.ZonedDateTime;
 public interface TransactionMapper {
 
     @Mappings({
-            @Mapping(source = "accountFrom", target = "accountFrom.accountNumber"),
-            @Mapping(source = "accountTo", target = "accountTo.accountNumber"),
+            @Mapping(source = "accountFrom", target = "accountFrom.accountNumber", ignore = true),
+            @Mapping(source = "accountTo", target = "accountTo.accountNumber", ignore = true),
             @Mapping(source = "sum", target = "sum"),
             @Mapping(source = "expenseCategory", target = "expenseCategory")
     })
@@ -24,6 +24,7 @@ public interface TransactionMapper {
 
 
     @Mappings({
+            @Mapping(source = "transactionEntity.id", target = "id"),
             @Mapping(source = "transactionEntity.accountFrom.accountNumber", target = "accountFrom"),
             @Mapping(source = "transactionEntity.accountTo.accountNumber", target = "accountTo"),
             @Mapping(source = "transactionEntity.sum", target = "sum"),
@@ -32,6 +33,7 @@ public interface TransactionMapper {
             @Mapping(source = "transactionEntity.limitExceeded", target = "limitExceeded"),
             @Mapping(source = "transactionEntity.createdAt", target = "dateTime", qualifiedByName = "localDateTimeToZonedDateTime"),
             @Mapping(source = "limitEntity.limitSum", target = "limitSum"),
+            @Mapping(source = "limitEntity.createdAt", target = "limitDateTime", qualifiedByName = "localDateTimeToZonedDateTime"),
             @Mapping(source = "limitCurrencyShortName", target = "limitCurrencyShortName"),
     })
     void mapToTransactionResponseDto(
@@ -53,6 +55,7 @@ public interface TransactionMapper {
 
     @Named("localDateTimeToZonedDateTime")
     default ZonedDateTime localDateTimeToZonedDateTime(LocalDateTime localDateTime) {
-        return localDateTime.atZone(ZoneId.of("Asia/Almaty"));
+        ZonedDateTime utcZonedDateTime = localDateTime.atZone(ZoneId.of("UTC"));
+        return utcZonedDateTime.withZoneSameInstant(ZoneId.of("Asia/Almaty"));
     }
 }

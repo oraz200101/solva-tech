@@ -4,7 +4,6 @@ import co.elastic.clients.elasticsearch.ElasticsearchClient;
 import co.elastic.clients.elasticsearch._types.mapping.Property;
 import co.elastic.clients.elasticsearch._types.mapping.TypeMapping;
 import co.elastic.clients.elasticsearch.core.IndexRequest;
-import co.elastic.clients.elasticsearch.indices.CreateIndexResponse;
 import co.elastic.clients.elasticsearch.indices.IndexSettings;
 import kz.solva.solvatechoraz.worker.ElasticWorker;
 import lombok.NonNull;
@@ -21,20 +20,22 @@ public class ElasticWorkerImpl implements ElasticWorker {
 
     @Override
     @SneakyThrows
-    public boolean createIndex(@NonNull String indexName, @NonNull Map<@NonNull String, @NonNull Property> indexMapping) {
-        TypeMapping mapping = new TypeMapping.Builder()
-                .properties(indexMapping).build();
+    public void createIndex(@NonNull String indexName, @NonNull Map<@NonNull String, @NonNull Property> indexMapping) {
+        boolean indexExists = elasticsearchClient.indices().exists(request -> request.index(indexName)).value();
 
-        CreateIndexResponse response = elasticsearchClient.indices().create(request -> request
-                .index(indexName)
-                .mappings(mapping)
-                .settings(new IndexSettings.Builder()
-                        .numberOfShards("1")
-                        .numberOfReplicas("1")
-                        .build())
-        );
+        if (!indexExists) {
+            TypeMapping mapping = new TypeMapping.Builder()
+                    .properties(indexMapping).build();
 
-        return response.acknowledged();
+            elasticsearchClient.indices().create(request -> request
+                    .index(indexName)
+                    .mappings(mapping)
+                    .settings(new IndexSettings.Builder()
+                            .numberOfShards("1")
+                            .numberOfReplicas("1")
+                            .build())
+            );
+        }
     }
 
     @Override

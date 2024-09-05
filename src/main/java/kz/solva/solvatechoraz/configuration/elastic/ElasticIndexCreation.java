@@ -1,6 +1,8 @@
 package kz.solva.solvatechoraz.configuration.elastic;
 
-import co.elastic.clients.elasticsearch.ElasticsearchClient;
+import jakarta.annotation.PostConstruct;
+import kz.solva.solvatechoraz.model.dto.TransactionResponseDto;
+import kz.solva.solvatechoraz.worker.ElasticWorker;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -8,7 +10,10 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class ElasticIndexCreation {
 
-    private final ElasticsearchClient elasticsearchClient;
+    private final ElasticWorker elasticWorker;
 
-
+    @PostConstruct
+    private void createIndexes() {
+        elasticWorker.createIndex(TransactionResponseDto.TRANSACTION_ELASTIC_INDEX_NAME, TransactionResponseDto.elasticMapping());
+    }
 }

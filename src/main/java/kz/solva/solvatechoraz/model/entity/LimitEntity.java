@@ -24,7 +24,6 @@ public class LimitEntity extends BaseEntity {
     private double limitSum;
 
     @Column(name = "created_at")
-    @CreationTimestamp
     private LocalDateTime createdAt;
 
     @OneToOne(fetch = FetchType.LAZY)

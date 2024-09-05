@@ -1,9 +1,13 @@
 package kz.solva.solvatechoraz.model.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @MappedSuperclass
-public class BaseEntity {
+@Getter
+@Setter
+public abstract class BaseEntity {
 
     @Id
     @Column(nullable = false)

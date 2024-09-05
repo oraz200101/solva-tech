@@ -19,7 +19,9 @@ public interface AccountRepository extends JpaRepository<AccountEntity, Long> {
             "WHERE a.accountNumber = :accountNumber")
     Optional<AccountResponseDto> findAccountByNumber(@Param("accountNumber") long accountNumber);
 
-
     @Query("select (count(a) > 0) from AccountEntity a where a.accountNumber = :accountNumber")
     boolean existsAccountByNumber(@Param("accountNumber") long accountNumber);
+
+    @Query("select a from AccountEntity a where a.accountNumber = :accountNumber")
+    Optional<AccountEntity> findByAccountNumber(@Param("accountNumber") long accountNumber);
 }

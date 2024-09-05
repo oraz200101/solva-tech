@@ -19,7 +19,7 @@ services:
       POSTGRES_USER: "solva"
       POSTGRES_DB: "postgres"
     ports:
-      - "5432:5432"
+      - "10010:5432"
     volumes:
       - ~/volumes/solva-tech/pg-data:/var/lib/postgresql/data
       - ./auth-init:/docker-entrypoint-initdb.d
@@ -35,6 +35,32 @@ services:
     ports:
       - "6379:6379"
 
+  es:
+    container_name: solva-tech-es
+    image: elasticsearch:8.3.2
+    # noinspection ComposeUnknownValues
+    mem_limit: "${MYBPM_ES_MEMORY_MAIN:-3000M}"
+    restart: always
+    ports:
+      - "9200:9200"
+    # noinspection SpellCheckingInspection
+    environment:
+      #- cluster.name=docker-cluster
+      - discovery.type=single-node
+      - node.name=from-plugin
+      - bootstrap.memory_lock=true
+      - index.store.type=hybridfs
+      - "ES_JAVA_OPTS=-Xms${MYBPM_ES_MEMORY_JAVA:-1500M} -Xmx${MYBPM_ES_MEMORY_JAVA:-1500M}"
+      #      - TAKE_FILE_OWNERSHIP=true
+      - xpack.security.enabled=false
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - ~/volumes/solva-tech/elasticsearch/data:/usr/share/elasticsearch/data
+      - ~/volumes/solva-tech/elasticsearch/logs:/usr/share/elasticsearch/logs
+
   solva-tech-app:
     build:
       context: .
@@ -45,6 +71,7 @@ services:
     depends_on:
       - solva-tech-db
       - redis
+      - es
     environment:
       DATABASE_HOST: solva-tech-db
       DATABASE_PORT: 5432
