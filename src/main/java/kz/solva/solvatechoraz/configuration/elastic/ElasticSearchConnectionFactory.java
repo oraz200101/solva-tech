@@ -12,10 +12,14 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ElasticSearchConnectionFactory {
 
+    private static final String ELASTIC_HOST = "localhost";
+    private static final int ELASTIC_PORT = 9200;
+    private static final String ELASTIC_SCHEME = "http";
+
     @Bean
     public RestClient restClient() {
         return RestClient.builder(
-                        new HttpHost("localhost", 9200, "http"))
+                        new HttpHost(ELASTIC_HOST, ELASTIC_PORT, ELASTIC_SCHEME))
                 .build();
     }
 
