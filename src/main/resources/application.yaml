@@ -23,5 +23,10 @@ spring:
       host: ${REDIS_HOST:localhost}
       port: ${REDIS_PORT:6379}
 
+  elasticsearch:
+    port: ${ELASTIC_SEARCH_PORT:9200}
+    host: ${ELASTIC_SEARCH_HOST:localhost}
+    schema: ${ELASTIC_SEARCH_SCHEMA:http}
+
   twelve:
     api: "c86562cc65ad4e029dc46a40585de951"

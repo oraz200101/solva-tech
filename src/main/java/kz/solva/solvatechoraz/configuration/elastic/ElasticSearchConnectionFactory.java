@@ -6,20 +6,26 @@ import co.elastic.clients.transport.ElasticsearchTransport;
 import co.elastic.clients.transport.rest_client.RestClientTransport;
 import org.apache.http.HttpHost;
 import org.elasticsearch.client.RestClient;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class ElasticSearchConnectionFactory {
 
-    private static final String ELASTIC_HOST = "localhost";
-    private static final int ELASTIC_PORT = 9200;
-    private static final String ELASTIC_SCHEME = "http";
+    @Value("${spring.elasticsearch.host}")
+    private String elasticsearchHost;
+
+    @Value("${spring.elasticsearch.port}")
+    private int elasticsearchPort;
+
+    @Value("${spring.elasticsearch.schema}")
+    private String elasticSearchSchema;
 
     @Bean
     public RestClient restClient() {
         return RestClient.builder(
-                        new HttpHost(ELASTIC_HOST, ELASTIC_PORT, ELASTIC_SCHEME))
+                        new HttpHost(elasticsearchHost, elasticsearchPort, elasticSearchSchema))
                 .build();
     }
 
